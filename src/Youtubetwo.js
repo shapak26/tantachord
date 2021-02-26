@@ -1,0 +1,206 @@
+import YouTube from 'react-youtube';
+import { useState, useEffect } from "react"
+
+function Chord() {
+
+
+    const [videoTime, setVideoTime] = useState(0)
+    const [chordId, setChordId] = useState(0)
+    const [chord, setChord] = useState("เริ่มเล่นคอร์ด")
+
+
+    const opts = {
+        height: '390',
+        width: '640',
+        playerVars: {
+            // https://developers.google.com/youtube/player_parameters
+            autoplay: 0,
+            controls: 0
+        },
+    };
+
+
+
+
+    const song = [
+
+        {
+            time: 1.5,
+            chord: "เอ"
+
+        },
+        {
+            time: 6,
+            chord: "F ช้า ไมเนอ"
+        },
+        {
+            time: 11.5,
+            chord: "ดี"
+        },
+        {
+            time: 17,
+            chord: "อี"
+        },
+        {
+            time: 22,
+            chord: "เอ"
+        },
+        {
+            time: 27,
+            chord: "F ช้าป ไมเนอ"
+        },
+        {
+            time: 32.2,
+            chord: "ดี"
+        },
+        {
+            time: 37.2,
+            chord: "อี"
+        }
+
+    ]
+
+
+
+    function readyToPlay(event) {
+
+
+
+        let player = event.target
+
+        let playButton = document.getElementById("play-button");
+        playButton.addEventListener("click", function () {
+            player.playVideo();
+
+        })
+
+
+        let pauseButton = document.getElementById("pause-button");
+        pauseButton.addEventListener("click", function () {
+            player.pauseVideo();
+        })
+
+        let previousChordButton = document.getElementById("seek-button");
+        previousChordButton.addEventListener("click", function () {
+
+            setChordId(chordId + 1)
+            setChord(song[chordId].chord)
+
+            player.seekTo(song[chordId].time - 0.1, true);
+
+            console.log(chordId)
+        })
+
+
+
+
+        event.target.setVolume(40)
+
+        console.log(event.target)
+    }
+
+    //run เมื่อหยุดเล่น
+    function pause(event) {
+
+    }
+
+
+    //run เมื่อมีการเล่น
+    function play(event) {
+
+        let player = event.target
+        let videotime = event.target.getCurrentTime()
+        let timeInterval
+        function updateTime() {
+            var oldTime = videotime;
+            if (player && player.getCurrentTime) {
+                videotime = player.getCurrentTime();
+
+                // console.log(videotime);
+                setVideoTime(videotime)
+
+
+            }
+
+
+
+
+        }
+
+        setInterval(updateTime, 100);
+
+
+
+
+
+    }
+
+
+    // call เมื่อ state videoTime เปลี่ยน
+
+    useEffect(() => {
+
+        if (chordId < song.length) {
+
+            if (song[chordId].time < videoTime + 0.1 && song[chordId].time > videoTime - 0.1) {
+
+                setChord(song[chordId].chord)
+
+                setChordId(chordId + 1)
+
+
+            }
+
+        }
+
+
+
+    }, [videoTime])
+
+    //function สำหรับอ่านเสียง
+    function say(m) {
+        var msg = new SpeechSynthesisUtterance();
+        var voices = window.speechSynthesis.getVoices();
+        msg.voice = voices[46];
+        msg.voiceURI = "native";
+        msg.volume = 1;
+        msg.rate = 0.8
+        msg.pitch = 0.8;
+        msg.text = m;
+        msg.lang = 'th-TH';
+        speechSynthesis.speak(msg);
+    }
+
+    // call เมื่อ state chord เปลี่ยน
+    useEffect(() => {
+
+        say(chord)
+
+    }, [chord])
+
+
+
+
+
+    function onStateChange(event) {
+        console.log(event.target.getCurrentTime())
+
+    }
+
+
+
+    return (
+        <div>
+            <h1>{videoTime}</h1>
+            <h1>{chord}</h1>
+            <h1>{chordId}</h1>
+            <YouTube videoId="Bn5JCe-7aIg" opts={opts} onReady={readyToPlay} onPlay={play} onPause={pause} onStateChange={onStateChange} />
+            <button id="play-button">Play Me</button>
+            <button id="pause-button">Pause Me</button>
+            <button id="seek-button">คอร์ดก่อนหน้า</button>
+        </div>
+
+    )
+}
+
+export default Chord
