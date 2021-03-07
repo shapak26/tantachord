@@ -1,0 +1,303 @@
+import YouTube from 'react-youtube';
+import { useState, useEffect } from "react"
+
+function AddChord() {
+
+
+    const [videoTime, setVideoTime] = useState(0)
+    const [chordId, setChordId] = useState(0)
+    const [chord, setChord] = useState("เริ่มเล่นคอร์ด")
+    const [player, setPlayer] = useState(null)
+    const [song2, setSong] = useState([])
+    const [chordObject, setChordObject] = useState(
+        {
+            time: 0,
+            chord: ""
+        }
+    )
+
+
+
+    const opts = {
+        height: '390',
+        width: '640',
+        playerVars: {
+            // https://developers.google.com/youtube/player_parameters
+            autoplay: 0,
+            controls: 0
+        },
+    };
+
+
+
+
+    const song = [
+
+        {
+            time: 1.5,
+            chord: "A"
+
+        },
+        {
+            time: 6,
+            chord: "F Sharp minor"
+        },
+        {
+            time: 11.6,
+            chord: "D"
+        },
+        {
+            time: 16.9,
+            chord: "E"
+        },
+        {
+            time: 22,
+            chord: "A"
+        },
+        {
+            time: 27,
+            chord: "F Sharp minor"
+        },
+        {
+            time: 32.2,
+            chord: "D"
+        },
+        {
+            time: 37.3,
+            chord: "E"
+        },
+        {
+            time: 42.4,
+            chord: "A"
+        },
+        {
+            time: 45.0,
+            chord: "A major seven"
+        },
+        {
+            time: 47.5,
+            chord: "A seven"
+        },
+        {
+            time: 50.0,
+            chord: "D"
+        },
+        {
+            time: 52.75,
+            chord: "A"
+        }
+
+    ]
+
+    function handleSeek(player) {
+
+        player.pauseVideo()
+
+
+        if (chordId <= 1) {
+
+            setChord("เริ่ม")
+
+
+
+
+        } else {
+            setChordId(chordId - 1)
+            setChord(song[chordId - 2].chord)
+
+            player.seekTo(song[chordId - 2].time - 0.1, true)
+
+        }
+
+
+
+    }
+
+
+
+    function readyToPlay(event) {
+
+
+        setPlayer(event.target)
+        let player = event.target
+
+        let playButton = document.getElementById("play-button");
+        playButton.addEventListener("click", function () {
+            player.playVideo();
+
+        })
+
+
+        let pauseButton = document.getElementById("pause-button");
+        pauseButton.addEventListener("click", function () {
+            player.pauseVideo();
+        })
+
+
+
+
+
+
+        event.target.setVolume(40)
+
+
+    }
+
+    //run เมื่อหยุดเล่น
+    function pause(event) {
+
+    }
+
+
+    //run เมื่อมีการเล่น
+    function play(event) {
+
+        let player = event.target
+        let videotime = event.target.getCurrentTime()
+        // let timeInterval
+        function updateTime() {
+            // let oldTime = videotime;
+            if (player && player.getCurrentTime) {
+                videotime = player.getCurrentTime();
+
+                // console.log(videotime);
+                setVideoTime(videotime)
+                setPlayer(player)
+
+
+            }
+
+        }
+
+        setInterval(updateTime, 100);
+
+
+
+
+
+    }
+
+
+    // call เมื่อ state videoTime เปลี่ยน
+
+    useEffect(() => {
+
+        if (chordId < song.length) {
+
+            if (song[chordId].time < videoTime + 0.1 && song[chordId].time > videoTime - 0.1) {
+
+                setChord(song[chordId].chord)
+
+                setChordId(chordId + 1)
+
+
+            }
+
+        }
+
+
+
+    }, [videoTime])
+
+    //function สำหรับอ่านเสียง
+    function say(m) {
+        var msg = new SpeechSynthesisUtterance();
+        var voices = window.speechSynthesis.getVoices();
+        msg.voice = voices[46];
+        msg.voiceURI = "native";
+        msg.volume = 1;
+        msg.rate = 0.7;
+        msg.pitch = 0.8;
+        msg.text = m;
+        msg.lang = 'th-TH';
+        speechSynthesis.speak(msg);
+    }
+
+    // call เมื่อ state chord เปลี่ยน
+    useEffect(() => {
+
+        say(chord)
+
+    }, [chord])
+
+
+
+
+
+
+
+
+
+
+
+    function getChord(event) {
+        let chordFromUser = event.target.value
+        let chordChanged = {
+            ...chordObject, chord: chordFromUser
+        }
+
+        setChordObject(chordChanged)
+        console.log(chordObject)
+
+
+    }
+
+    function getChordTime(event) {
+        let chordTimeFromUser = event.target.value
+        let chordTimeChanged = {
+            ...chordObject, time: chordTimeFromUser
+        }
+
+        setChordObject(chordTimeChanged)
+        console.log(chordTimeChanged)
+
+
+    }
+
+    function handleSubmit(event) {
+        event.preventDefault()
+        let newSong = [
+            ...song2,
+            chordObject
+        ]
+        setSong(newSong)
+        console.log(song2)
+
+
+    }
+
+
+    return (
+        <div>
+            <h1>{videoTime}</h1>
+            <h1>{chord}</h1>
+            <h1>{chordId}</h1>
+            <div className="player-button">
+                <button id="play-button" >Play Me</button>
+                <button id="pause-button" >Pause Me</button>
+                <button id="seek-button" onClick={() => {
+                    handleSeek(player)
+                }}>คอร์ดก่อนหน้า</button>
+            </div>
+
+
+
+            <YouTube videoId="Bn5JCe-7aIg" opts={opts} onReady={readyToPlay} onPlay={play} onPause={pause} />
+            <div>
+                <form onSubmit={handleSubmit}>
+                    <label for="chord">คอร์ด</label>
+                    <input type="text" id="chord" name="chord" onChange={getChord}></input>
+                    <label for="time">เวลา</label>
+                    <input type="number" id="time" name="time" onChange={getChordTime}></input>
+                    <button type="submit">ใส่คอร์ด</button>
+                </form>
+
+
+            </div>
+
+        </div>
+
+    )
+}
+
+export default AddChord
