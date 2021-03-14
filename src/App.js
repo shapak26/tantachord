@@ -11,6 +11,8 @@ import {
   useParams
 } from 'react-router-dom'
 
+import Form from './formChord'
+
 function App() {
 
 
@@ -20,6 +22,7 @@ function App() {
         <Switch>
           <Route path="/chord" component={Chord} />
           <Route path="/add-chord" component={AddChord} />
+          <Route path="/form" component={Form} />
 
 
         </Switch>

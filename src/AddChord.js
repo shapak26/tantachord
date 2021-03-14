@@ -1,5 +1,6 @@
 import YouTube from 'react-youtube';
 import { useState, useEffect } from "react"
+import Form from './formChord'
 
 function AddChord() {
 
@@ -9,13 +10,20 @@ function AddChord() {
     const [chord, setChord] = useState("เริ่มเล่นคอร์ด")
     const [player, setPlayer] = useState(null)
     const [song2, setSong] = useState([])
-    const [chordObject, setChordObject] = useState(
+
+
+    const [chordLists, setChordList] = useState([
         {
-            time: 0,
+            time: "",
+            chord: ""
+        },
+        {
+            time: "",
             chord: ""
         }
-    )
+    ]
 
+    )
 
 
     const opts = {
@@ -31,64 +39,7 @@ function AddChord() {
 
 
 
-    const song = [
-
-        {
-            time: 1.5,
-            chord: "A"
-
-        },
-        {
-            time: 6,
-            chord: "F Sharp minor"
-        },
-        {
-            time: 11.6,
-            chord: "D"
-        },
-        {
-            time: 16.9,
-            chord: "E"
-        },
-        {
-            time: 22,
-            chord: "A"
-        },
-        {
-            time: 27,
-            chord: "F Sharp minor"
-        },
-        {
-            time: 32.2,
-            chord: "D"
-        },
-        {
-            time: 37.3,
-            chord: "E"
-        },
-        {
-            time: 42.4,
-            chord: "A"
-        },
-        {
-            time: 45.0,
-            chord: "A major seven"
-        },
-        {
-            time: 47.5,
-            chord: "A seven"
-        },
-        {
-            time: 50.0,
-            chord: "D"
-        },
-        {
-            time: 52.75,
-            chord: "A"
-        }
-
-    ]
-
+    const song = chordLists
     function handleSeek(player) {
 
         player.pauseVideo()
@@ -216,7 +167,7 @@ function AddChord() {
     // call เมื่อ state chord เปลี่ยน
     useEffect(() => {
 
-        say(chord)
+        window.responsiveVoice.speak(chord, "Thai Male", { rate: 1.1, volume: 1 });
 
     }, [chord])
 
@@ -230,41 +181,8 @@ function AddChord() {
 
 
 
-    function getChord(event) {
-        let chordFromUser = event.target.value
-        let chordChanged = {
-            ...chordObject, chord: chordFromUser
-        }
-
-        setChordObject(chordChanged)
-        console.log(chordObject)
 
 
-    }
-
-    function getChordTime(event) {
-        let chordTimeFromUser = event.target.value
-        let chordTimeChanged = {
-            ...chordObject, time: chordTimeFromUser
-        }
-
-        setChordObject(chordTimeChanged)
-        console.log(chordTimeChanged)
-
-
-    }
-
-    function handleSubmit(event) {
-        event.preventDefault()
-        let newSong = [
-            ...song2,
-            chordObject
-        ]
-        setSong(newSong)
-        console.log(song2)
-
-
-    }
 
 
     return (
@@ -283,17 +201,9 @@ function AddChord() {
 
 
             <YouTube videoId="Bn5JCe-7aIg" opts={opts} onReady={readyToPlay} onPlay={play} onPause={pause} />
-            <div>
-                <form onSubmit={handleSubmit}>
-                    <label for="chord">คอร์ด</label>
-                    <input type="text" id="chord" name="chord" onChange={getChord}></input>
-                    <label for="time">เวลา</label>
-                    <input type="number" id="time" name="time" onChange={getChordTime}></input>
-                    <button type="submit">ใส่คอร์ด</button>
-                </form>
+            <Form chordLists={chordLists} setChordList={setChordList} />
+            <script src="https://code.responsivevoice.org/responsivevoice.js?key=bJ1UATjQ"></script>
 
-
-            </div>
 
         </div>
 

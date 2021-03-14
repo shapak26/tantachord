@@ -218,7 +218,7 @@ function Chord() {
     // call เมื่อ state chord เปลี่ยน
     useEffect(() => {
 
-        say(chord)
+        window.responsiveVoice.speak(chord, "Thai Male", { rate: 1.1, volume: 1 });
 
     }, [chord])
 
@@ -249,7 +249,7 @@ function Chord() {
             </div>
 
             <YouTube videoId="Bn5JCe-7aIg" opts={opts} onReady={readyToPlay} onPlay={play} onPause={pause} onStateChange={onStateChange} />
-
+            <script src="https://code.responsivevoice.org/responsivevoice.js?key=bJ1UATjQ"></script>
 
         </div>
 
