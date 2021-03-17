@@ -9,7 +9,7 @@ import {
   Switch,
   Route,
   useParams,
-  Link
+  HashRouter
 } from 'react-router-dom'
 
 
@@ -20,7 +20,7 @@ function App() {
 
   return (
     <div>
-      <BrowserRouter>
+      <HashRouter>
         <Switch>
           <Route path="/chord" component={Chord} />
           <Route path="/add-chord" component={AddChord} />
@@ -28,9 +28,9 @@ function App() {
 
 
         </Switch>
-      </BrowserRouter>
+      </HashRouter>
 
-      <a href="/chord">chord</a>
+
 
 
     </div>
