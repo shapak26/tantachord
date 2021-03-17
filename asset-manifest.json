@@ -1,23 +1,23 @@
 {
   "files": {
     "main.css": "/tantachord/static/css/main.231cad10.chunk.css",
-    "main.js": "/tantachord/static/js/main.37473cb1.chunk.js",
-    "main.js.map": "/tantachord/static/js/main.37473cb1.chunk.js.map",
+    "main.js": "/tantachord/static/js/main.0f336b85.chunk.js",
+    "main.js.map": "/tantachord/static/js/main.0f336b85.chunk.js.map",
     "runtime-main.js": "/tantachord/static/js/runtime-main.b311ffa9.js",
     "runtime-main.js.map": "/tantachord/static/js/runtime-main.b311ffa9.js.map",
-    "static/js/2.1bcd8a56.chunk.js": "/tantachord/static/js/2.1bcd8a56.chunk.js",
-    "static/js/2.1bcd8a56.chunk.js.map": "/tantachord/static/js/2.1bcd8a56.chunk.js.map",
+    "static/js/2.e420034f.chunk.js": "/tantachord/static/js/2.e420034f.chunk.js",
+    "static/js/2.e420034f.chunk.js.map": "/tantachord/static/js/2.e420034f.chunk.js.map",
     "static/js/3.0234798c.chunk.js": "/tantachord/static/js/3.0234798c.chunk.js",
     "static/js/3.0234798c.chunk.js.map": "/tantachord/static/js/3.0234798c.chunk.js.map",
     "index.html": "/tantachord/index.html",
     "static/css/main.231cad10.chunk.css.map": "/tantachord/static/css/main.231cad10.chunk.css.map",
-    "static/js/2.1bcd8a56.chunk.js.LICENSE.txt": "/tantachord/static/js/2.1bcd8a56.chunk.js.LICENSE.txt",
+    "static/js/2.e420034f.chunk.js.LICENSE.txt": "/tantachord/static/js/2.e420034f.chunk.js.LICENSE.txt",
     "static/media/logo.6ce24c58.svg": "/tantachord/static/media/logo.6ce24c58.svg"
   },
   "entrypoints": [
     "static/js/runtime-main.b311ffa9.js",
-    "static/js/2.1bcd8a56.chunk.js",
+    "static/js/2.e420034f.chunk.js",
     "static/css/main.231cad10.chunk.css",
-    "static/js/main.37473cb1.chunk.js"
+    "static/js/main.0f336b85.chunk.js"
   ]
 }
