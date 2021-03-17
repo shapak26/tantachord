@@ -8,8 +8,10 @@ import {
   BrowserRouter,
   Switch,
   Route,
-  useParams
+  useParams,
+  Link
 } from 'react-router-dom'
+
 
 import Form from './formChord'
 
@@ -27,6 +29,8 @@ function App() {
 
         </Switch>
       </BrowserRouter>
+
+      <a href="/chord">chord</a>
 
 
     </div>
