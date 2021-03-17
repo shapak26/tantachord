@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/tantachord/static/css/main.231cad10.chunk.css",
-    "main.js": "/tantachord/static/js/main.589783f0.chunk.js",
-    "main.js.map": "/tantachord/static/js/main.589783f0.chunk.js.map",
+    "main.js": "/tantachord/static/js/main.37473cb1.chunk.js",
+    "main.js.map": "/tantachord/static/js/main.37473cb1.chunk.js.map",
     "runtime-main.js": "/tantachord/static/js/runtime-main.b311ffa9.js",
     "runtime-main.js.map": "/tantachord/static/js/runtime-main.b311ffa9.js.map",
     "static/js/2.1bcd8a56.chunk.js": "/tantachord/static/js/2.1bcd8a56.chunk.js",
@@ -18,6 +18,6 @@
     "static/js/runtime-main.b311ffa9.js",
     "static/js/2.1bcd8a56.chunk.js",
     "static/css/main.231cad10.chunk.css",
-    "static/js/main.589783f0.chunk.js"
+    "static/js/main.37473cb1.chunk.js"
   ]
 }
